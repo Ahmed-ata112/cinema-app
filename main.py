@@ -1,6 +1,6 @@
 import re
 
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Tag
 import pandas as pd
 from urllib.request import urlopen
 
@@ -14,12 +14,23 @@ def write_html_to_file(html):
             f.write(str(a) + "\n")
 
 
+def filter_movies(tag):
+    return not tag.has_attr("class")
+
+
 def parse_movies_in_cinema(url):
     page = urlopen(url)
     html = page.read().decode("utf-8")
     soup = BeautifulSoup(html, "html.parser")
-    movies = soup.findAll('div', attrs={'class': 'boxed-0'})
+    movies = soup.findAll(filter_movies, href=re.compile('/en/work/*'))
     write_html_to_file(movies)
+    i = 0
+    while i < len(movies):
+        print("image is " + movies[i].find('img')['data-src'])
+        i += 1
+        print("title is " + movies[i].text)
+        print("link + " + baseUrl + movies[i]['href'])
+        i += 1
 
 
 def main():
@@ -33,16 +44,10 @@ def main():
         curr_cinema = cinema.find(href=re.compile('/en/theater/*'))
         print(curr_cinema.text.strip())
         print(baseUrl + curr_cinema['href'])
-
-    products = []  # List to store name of the product
-    prices = []  # List to store price of the product
-    ratings = []  # List to store rating of the product
-
-    print(products)
+        parse_movies_in_cinema(baseUrl + curr_cinema['href'])
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    # main()
-    parse_movies_in_cinema("https://elcinema.com/en/theater/3101219/")
+    main()
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
