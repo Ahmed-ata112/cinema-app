@@ -2,7 +2,7 @@ from parser import Parser
 
 
 def main():
-    Parser().parse_cinames()
+    Parser("https://elcinema.com/en/theater/1").parse_cinames()
 
 
 # Press the green button in the gutter to run the script.

@@ -11,9 +11,9 @@ def write_html_to_file(html):
 
 class Parser():
 
-    def __init__(self):
+    def __init__(self, theaterUrl):
 
-        self.url = "https://elcinema.com/en/theater/1"
+        self.theaterUrl = theaterUrl
         self.baseUrl = "https://elcinema.com"
 
     def parse_movie_details(self, url):
@@ -53,7 +53,7 @@ class Parser():
             i += 1
 
     def parse_cinames(self):
-        page = urlopen(self.url)
+        page = urlopen(self.theaterUrl)
         html = page.read().decode("utf-8")
         soup = BeautifulSoup(html, "html.parser")
 
