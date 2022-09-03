@@ -4,9 +4,11 @@ from movies_api import models
 
 class MovieItemSerializer(serializers.ModelSerializer):
     '''Serializer for feed items'''
+
     class Meta:
         model = models.MovieItem
-        fields = '__all__'
+        fields = ('movie_title', 'movie_description',
+                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating', 'cinema_id')
 
 
 class CinemaItemSerializer(serializers.ModelSerializer):
