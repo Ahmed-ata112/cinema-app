@@ -21,7 +21,7 @@ class MovieItem(models.Model):
     movie_link_id = models.CharField(max_length=20)
     movie_rating = models.FloatField()
     cinema = models.ForeignKey(
-        'movies_api.CinemaItem', on_delete=models.CASCADE, null=True)
+        'movies_api.CinemaItem', on_delete=models.CASCADE, null=True, related_name='movies')
 
     def __str__(self):
         '''return Model as String '''

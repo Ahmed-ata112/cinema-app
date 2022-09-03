@@ -18,3 +18,4 @@ class CinemaFeedViewSet(viewsets.ModelViewSet):
 
     serializer_class = serializers.CinemaItemSerializer
     queryset = models.CinemaItem.objects.all()
+
