@@ -6,7 +6,6 @@ from django.conf import settings
 
 
 class CinemaItem(models.Model):
-
     cinema_name = models.CharField(max_length=50)
 
     def __str__(self):
@@ -21,6 +20,8 @@ class MovieItem(models.Model):
     movie_genre = models.CharField(max_length=20)
     movie_link_id = models.CharField(max_length=20)
     movie_rating = models.FloatField()
+    cinema = models.ForeignKey(
+        'movies_api.CinemaItem', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         '''return Model as String '''

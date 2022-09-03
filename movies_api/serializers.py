@@ -7,7 +7,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MovieItem
         fields = ('id', 'movie_title', 'movie_description',
-                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating',)
+                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating', 'cinema')
 
 
 class CinemaItemSerializer(serializers.ModelSerializer):
