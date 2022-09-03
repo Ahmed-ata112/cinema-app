@@ -5,6 +5,7 @@ from movies_api.models import *
 
 class Command(BaseCommand):
     def handle(self, **options):
+
         MovieItem.objects.all().delete()
         CinemaItem.objects.all().delete()
         Parser("https://elcinema.com/en/theater/1").parse_cinames()

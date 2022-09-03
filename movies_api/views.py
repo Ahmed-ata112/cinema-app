@@ -6,16 +6,15 @@ from movies_api import models
 from rest_framework.response import Response
 
 
-class MovieFeedViewSet(viewsets.ModelViewSet):
+class MovieFeedViewSet(viewsets.ReadOnlyModelViewSet):
     '''Handle creating ,Reading and updating profile feed item'''
 
     serializer_class = serializers.MovieItemSerializer
     queryset = models.MovieItem.objects.all()
 
 
-class CinemaFeedViewSet(viewsets.ModelViewSet):
+class CinemaFeedViewSet(viewsets.ReadOnlyModelViewSet):
     '''Handle creating ,Reading and updating profile feed item'''
 
     serializer_class = serializers.CinemaItemSerializer
     queryset = models.CinemaItem.objects.all()
-
