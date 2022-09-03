@@ -4,7 +4,8 @@ from movies_api import views
 
 
 router = DefaultRouter()
-router.register('', views.MovieFeedViewSet)
+router.register('movies', views.MovieFeedViewSet)
+router.register('cinemas', views.CinemaFeedViewSet)
 
 
 urlpatterns = [
