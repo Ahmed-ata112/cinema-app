@@ -7,6 +7,7 @@ from django.conf import settings
 
 class CinemaItem(models.Model):
     cinema_name = models.CharField(max_length=50)
+    cinema_link = models.CharField(max_length=50)
 
     def __str__(self):
         '''return Model as String '''

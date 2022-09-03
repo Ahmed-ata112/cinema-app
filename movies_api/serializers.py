@@ -18,4 +18,4 @@ class CinemaItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CinemaItem
-        fields = ('cinema_name', 'movies')
+        fields = ('cinema_name', 'cinema_link', 'movies')
