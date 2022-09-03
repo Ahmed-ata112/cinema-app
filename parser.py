@@ -32,6 +32,10 @@ class Parser():
         res = descriptions.findAll('p')
         print(f"description: {res[0].text}")
 
+        rating = soup.find('div', attrs={'class': 'stars-orange-60'}).text
+        print(rating)
+        
+        
     def parse_movies_in_cinema(self, url):
         page = urlopen(url)
         html = page.read().decode("utf-8")
