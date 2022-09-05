@@ -6,7 +6,7 @@ beautifulsoup4==4.11.1
 certifi==2022.6.15
 cffi==1.15.1
 charset-normalizer==2.1.1
-Django==4.1
+Django==3.2
 django-background-tasks==1.2.5
 django-compat==1.0.15
 djangorestframework==3.13.1
