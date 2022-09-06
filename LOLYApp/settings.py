@@ -134,6 +134,5 @@ USE_TZ = True
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-BACKGROUND_TASK_RUN_ASYNC = True
+STATIC_URL = '/static/'
