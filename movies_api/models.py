@@ -15,7 +15,8 @@ class CinemaItem(models.Model):
 
 
 class MovieItem(models.Model):
-    movie_title = models.CharField(max_length=500)
+    movie_title = models.CharField(
+        max_length=500, null=False, primary_key=True)
     movie_image = models.TextField()
     movie_description = models.TextField()
     movie_genre = models.CharField(max_length=20)
