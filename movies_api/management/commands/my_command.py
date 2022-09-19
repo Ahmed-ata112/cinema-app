@@ -8,10 +8,10 @@ from django.core.management import call_command
 
 class Command(BaseCommand):
     def handle(self, **options):
-        Task.objects.all().delete()
+        # Task.objects.all().delete()
         # daily would make it happen one time
-        demo_task("Hi after 60 min", repeat=Task.DAILY)
+        # demo_task("Hi after 60 min", repeat=Task.DAILY)
 
-        # MovieItem.objects.all().delete()
-        # CinemaItem.objects.all().delete()
-        # Parser("https://elcinema.com/en/theater/1").parse_cinames()
+        MovieItem.objects.all().delete()
+        CinemaItem.objects.all().delete()
+        Parser().init()

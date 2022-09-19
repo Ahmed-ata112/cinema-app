@@ -25,6 +25,18 @@ class MovieStruct:
                       )
         m.save()
 
+    # convert to json
+    def to_json(self):
+        return {
+            'movie_title': self.movie_title,
+            'movie_image': self.movie_image,
+            'movie_description': self.movie_description,
+            'movie_genre': self.movie_genre,
+            'movie_link_id': self.movie_link_id,
+            'movie_rating': self.movie_rating,
+            'cinema': self.cinema,
+        }
+
 
 def write_html_to_file(html):
     with open("ht.html", "w", encoding="utf-8") as f:
@@ -33,8 +45,8 @@ def write_html_to_file(html):
 
 
 class Parser():
-    def __init__(self, theaterUrl):
-        self.theaterUrl = theaterUrl
+    def __init__(self):
+        self.theaterBaseUrl = "https://elcinema.com/en/theater/"
         self.baseUrl = "https://elcinema.com"
         self.curr_movie = MovieStruct()
 
@@ -86,25 +98,34 @@ class Parser():
             i += 1
 
     def parse_cinames(self):
-        page = urlopen(self.theaterUrl)
-        html = page.read().decode("utf-8")
-        soup = BeautifulSoup(html, "html.parser")
+        for i in range(1, 11):
+            page = urlopen(self.theaterBaseUrl + str(i))
+            print(self.theaterBaseUrl + str(i))
+            html = page.read().decode("utf-8")
+            soup = BeautifulSoup(html, "html.parser")
 
-        cinemas = soup.findAll(
-            'div', attrs={'class': 'jumbo-theater clearfix'})
-        # write_html_to_file(cinemas)
+            cinemas = soup.findAll(
+                'div', attrs={'class': 'jumbo-theater clearfix'})
+            # write_html_to_file(cinemas)
 
-        def cinn_filter(tag):
-            return tag.has_attr("href") and tag['href'].startswith("/en/theater/")
+            def cinn_filter(tag):
+                return tag.has_attr("href") and tag['href'].startswith("/en/theater/")
 
-        for cinema in cinemas:
-            curr_cinema = cinema.find(cinn_filter)
-            print(curr_cinema.text.strip())
-            print(self.baseUrl + curr_cinema['href'])
-            c = CinemaItem(cinema_name=curr_cinema.text.strip(),
-                           cinema_link=(self.baseUrl + curr_cinema['href']))
+            for cinema in cinemas:
+                try:
+                    curr_cinema = cinema.find(cinn_filter)
+                    print(curr_cinema.text.strip())
+                    print(self.baseUrl + curr_cinema['href'])
+                    c = CinemaItem(cinema_name=curr_cinema.text.strip(),
+                                   cinema_link=(self.baseUrl + curr_cinema['href']))
 
-            c.save()
-            self.curr_movie.cinema = c
-            self.parse_movies_in_cinema(self.baseUrl + curr_cinema['href'])
-            print('='*50)
+                    c.save()
+                    self.curr_movie.cinema = c
+                    self.parse_movies_in_cinema(
+                        self.baseUrl + curr_cinema['href'])
+                    print('='*50)
+                except Exception as e:
+                    print(e)
+
+    def init(self):
+        self.parse_cinames()
