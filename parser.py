@@ -1,8 +1,12 @@
 
+from telnetlib import AUTHENTICATION
 from unicodedata import name
 from bs4 import BeautifulSoup, Tag
 from urllib.request import urlopen
 from movies_api.models import *
+import requests
+
+TOKEN = "token 806045a676ffb81d29f90fbacc788558a99a6b4a"
 
 
 class MovieStruct:
@@ -15,17 +19,11 @@ class MovieStruct:
     cinema = 0
 
     def save(self):
-        m = MovieItem(movie_title=self.movie_title,
-                      movie_image=self.movie_image,
-                      movie_description=self.movie_description,
-                      movie_genre=self.movie_genre,
-                      movie_link_id=self.movie_link_id,
-                      movie_rating=self.movie_rating,
-                      cinema=self.cinema
-                      )
-        m.save()
+        return requests.post('http://localhost:8000/api/movies/',
+                             data=self.to_json(), headers={'Authorization': TOKEN})
 
     # convert to json
+
     def to_json(self):
         return {
             'movie_title': self.movie_title,
@@ -36,6 +34,26 @@ class MovieStruct:
             'movie_rating': self.movie_rating,
             'cinema': self.cinema,
         }
+
+
+class CinemaStruct:
+    cinema_name = ''
+    cinema_link = ''
+
+    def save(self):
+        return requests.post('http://localhost:8000/api/cinemas/',
+                             data=self.to_json(), headers={'Authorization': TOKEN})
+
+    # convert to json
+
+    def to_json(self):
+        return {
+            'cinema_name': self.cinema_name,
+            'cinema_link': self.cinema_link,
+        }
+
+    def __str__(self):
+        return self.cinema_name
 
 
 def write_html_to_file(html):
@@ -49,6 +67,7 @@ class Parser():
         self.theaterBaseUrl = "https://elcinema.com/en/theater/"
         self.baseUrl = "https://elcinema.com"
         self.curr_movie = MovieStruct()
+        self.curr_cinema = CinemaStruct()
 
     def parse_movie_details(self, url):
         page = urlopen(url)
@@ -116,10 +135,13 @@ class Parser():
                     curr_cinema = cinema.find(cinn_filter)
                     print(curr_cinema.text.strip())
                     print(self.baseUrl + curr_cinema['href'])
-                    c = CinemaItem(cinema_name=curr_cinema.text.strip(),
-                                   cinema_link=(self.baseUrl + curr_cinema['href']))
+                    # c = CinemaItem(cinema_name=curr_cinema.text.strip(),
+                    #                cinema_link=(self.baseUrl + curr_cinema['href']))
 
-                    c.save()
+                    self.curr_cinema.cinema_name = curr_cinema.text.strip()
+                    self.curr_cinema.cinema_link = self.baseUrl + \
+                        curr_cinema['href']
+                    print()
                     self.curr_movie.cinema = c
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
