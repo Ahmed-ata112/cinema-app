@@ -32,7 +32,7 @@ class MovieStruct:
             'movie_genre': self.movie_genre,
             'movie_link_id': self.movie_link_id,
             'movie_rating': self.movie_rating,
-            'cinema': self.cinema,
+            'cinema_id': self.cinema,
         }
 
 
@@ -135,13 +135,13 @@ class Parser():
                     curr_cinema = cinema.find(cinn_filter)
                     print(curr_cinema.text.strip())
                     print(self.baseUrl + curr_cinema['href'])
-                    # c = CinemaItem(cinema_name=curr_cinema.text.strip(),
-                    #                cinema_link=(self.baseUrl + curr_cinema['href']))
-
-                    self.curr_cinema.cinema_name = curr_cinema.text.strip()
-                    self.curr_cinema.cinema_link = self.baseUrl + \
-                        curr_cinema['href']
-                    print()
+                    c = CinemaItem(cinema_name=curr_cinema.text.strip(),
+                                   cinema_link=(self.baseUrl + curr_cinema['href']))
+                    c.save()
+                    # self.curr_cinema.cinema_name = curr_cinema.text.strip()
+                    # self.curr_cinema.cinema_link = self.baseUrl + \
+                    #     curr_cinema['href']
+                    # print()
                     self.curr_movie.cinema = c
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
