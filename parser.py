@@ -32,7 +32,6 @@ class MovieStruct:
             'movie_genre': self.movie_genre,
             'movie_link_id': self.movie_link_id,
             'movie_rating': self.movie_rating,
-            'cinema_id': self.cinema,
         }
 
 
@@ -142,7 +141,7 @@ class Parser():
                     # self.curr_cinema.cinema_link = self.baseUrl + \
                     #     curr_cinema['href']
                     # print()
-                    self.curr_movie.cinema = c
+                    self.curr_movie.cinema = c.id
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
                     print('='*50)
