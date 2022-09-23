@@ -1,5 +1,4 @@
 
-from telnetlib import AUTHENTICATION
 from unicodedata import name
 from bs4 import BeautifulSoup, Tag
 from urllib.request import urlopen
@@ -19,10 +18,20 @@ class MovieStruct:
     cinema = 0
 
     def save(self):
-        return requests.post('http://localhost:8000/api/movies/',
-                             data=self.to_json(), headers={'Authorization': TOKEN})
+        # return requests.post('http://localhost:8000/api/movies/',
+        #  data=self.to_json(), headers={'Authorization': TOKEN})
 
-    # convert to json
+        m = MovieItem(movie_title=self.movie_title,
+                      movie_image=self.movie_image,
+                      movie_description=self.movie_description,
+                      movie_genre=self.movie_genre,
+                      movie_link_id=self.movie_link_id,
+                      movie_rating=self.movie_rating,
+                      cinema=self.cinema
+                      )
+        m.save()
+
+        # convert to json
 
     def to_json(self):
         return {
@@ -39,9 +48,9 @@ class CinemaStruct:
     cinema_name = ''
     cinema_link = ''
 
-    def save(self):
-        return requests.post('http://localhost:8000/api/cinemas/',
-                             data=self.to_json(), headers={'Authorization': TOKEN})
+    # def save(self):
+    # return requests.post('http://localhost:8000/api/cinemas/',
+    #  data=self.to_json(), headers={'Authorization': TOKEN})
 
     # convert to json
 
@@ -139,9 +148,9 @@ class Parser():
                     c.save()
                     # self.curr_cinema.cinema_name = curr_cinema.text.strip()
                     # self.curr_cinema.cinema_link = self.baseUrl + \
-                    #     curr_cinema['href']
-                    # print()
-                    self.curr_movie.cinema = c.id
+                    # curr_cinema['href']
+                    self.curr_movie.cinema = c
+
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
                     print('='*50)
