@@ -12,7 +12,7 @@ class MovieFeedViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = serializers.MovieItemSerializer
     queryset = models.MovieItem.objects.all()
-
+    
 
 class CinemaFeedViewSet(viewsets.ModelViewSet):
     '''Handle creating ,Reading and updating profile feed item'''

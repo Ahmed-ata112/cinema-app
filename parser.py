@@ -7,6 +7,11 @@ import requests
 
 TOKEN = "token 806045a676ffb81d29f90fbacc788558a99a6b4a"
 
+# Cinema
+# Movie
+# All Cinames
+# All Movies
+
 
 class MovieStruct:
     movie_title = ''
@@ -36,6 +41,7 @@ class MovieStruct:
     def to_json(self):
         return {
             'movie_title': self.movie_title,
+
             'movie_image': self.movie_image,
             'movie_description': self.movie_description,
             'movie_genre': self.movie_genre,
