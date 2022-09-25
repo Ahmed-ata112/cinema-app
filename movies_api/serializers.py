@@ -3,12 +3,14 @@ from movies_api import models
 
 
 class MovieItemSerializer(serializers.ModelSerializer):
-    '''Serializer for feed items'''
+    '''Serializ er for feed items'''
+    # cinema = serializers.ManyRelatedField()
 
     class Meta:
         model = models.MovieItem
         fields = ('movie_title', 'movie_description',
-                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating', 'cinema_id')
+                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating', 'cinema')
+        depth = 1
 
 
 class CinemaItemSerializer(serializers.ModelSerializer):

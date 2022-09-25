@@ -13,17 +13,19 @@ class CinemaItem(models.Model):
         '''return Model as String '''
         return self.cinema_name
 
+# python manage.py migrate --run-syncdb
+
 
 class MovieItem(models.Model):
-    movie_title = models.CharField(
-        max_length=500, null=False)
+    movie_title = models.CharField(unique=True,
+                                   max_length=500, null=False)
     movie_image = models.TextField()
     movie_description = models.TextField()
     movie_genre = models.CharField(max_length=20)
     movie_link_id = models.CharField(max_length=20)
     movie_rating = models.FloatField()
-    cinema = models.ForeignKey(
-        'movies_api.CinemaItem', on_delete=models.CASCADE, null=True, related_name='movies')
+    cinema = models.ManyToManyField(
+        CinemaItem,  related_name='movies')
 
     def __str__(self):
         '''return Model as String '''

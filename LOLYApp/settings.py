@@ -38,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'background_task',
+    # 'background_task',
     'rest_framework.authtoken',
-    'djsupervisor',
+    # 'djsupervisor',
     'movies_api',
 ]
 

@@ -2,6 +2,7 @@
 from unicodedata import name
 from bs4 import BeautifulSoup, Tag
 from urllib.request import urlopen
+from django.core.exceptions import ObjectDoesNotExist
 from movies_api.models import *
 import requests
 
@@ -26,17 +27,20 @@ class MovieStruct:
         # return requests.post('http://localhost:8000/api/movies/',
         #  data=self.to_json(), headers={'Authorization': TOKEN})
 
-        m = MovieItem(movie_title=self.movie_title,
-                      movie_image=self.movie_image,
-                      movie_description=self.movie_description,
-                      movie_genre=self.movie_genre,
-                      movie_link_id=self.movie_link_id,
-                      movie_rating=self.movie_rating,
-                      cinema=self.cinema
-                      )
-        m.save()
-
-        # convert to json
+        try:
+            retrieved = MovieItem.objects.get(movie_title=self.movie_title)
+            retrieved.cinema.add(self.cinema)
+            retrieved.save()
+        except ObjectDoesNotExist:
+            retrieved = MovieItem(movie_title=self.movie_title,
+                                  movie_image=self.movie_image,
+                                  movie_description=self.movie_description,
+                                  movie_genre=self.movie_genre,
+                                  movie_link_id=self.movie_link_id,
+                                  movie_rating=self.movie_rating,
+                                  )
+            retrieved.save()
+            retrieved.cinema.add(self.cinema)
 
     def to_json(self):
         return {
