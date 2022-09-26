@@ -97,7 +97,15 @@ class Parser():
 
         genre = soup.find(filter_details)
         print(f"genre  {genre.text}")
-        self.curr_movie.movie_genre = genre.text
+
+        try:
+            gen = MovieGenre.objects.get(genre_name=genre.text)
+            self.curr_movie.movie_genre = gen
+        except ObjectDoesNotExist:
+            gen = MovieGenre(genre_name=genre.text)
+            gen.save()
+            self.curr_movie.movie_genre = gen
+
         descriptions = soup.find(
             'div', attrs={'class': 'columns small-12 medium-9 large-9'})
 

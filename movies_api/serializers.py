@@ -2,9 +2,19 @@ from rest_framework import serializers
 from movies_api import models
 
 
+class MovieGenreSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MovieGenre
+        fields = ('genre_name',)
+
+
 class MovieItemSerializer(serializers.ModelSerializer):
     '''Serializ er for feed items'''
     # cinema = serializers.ManyRelatedField()
+    movie_genre = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='genre_name'
+    )
 
     class Meta:
         model = models.MovieItem

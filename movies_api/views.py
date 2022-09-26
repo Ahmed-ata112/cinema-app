@@ -17,7 +17,7 @@ class MovieFeedViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = serializers.MovieItemSerializer
     queryset = models.MovieItem.objects.all()
-    search_fields = ['movie_title', 'movie_genre', ]
+    search_fields = ['movie_title', 'movie_genre__genre_name', ]
     filter_backends = (filters.SearchFilter,
                        django_filters.rest_framework.DjangoFilterBackend)
     filterset_class = MoviesFilter
@@ -31,3 +31,9 @@ class CinemaFeedViewSet(viewsets.ModelViewSet):
     queryset = models.CinemaItem.objects.all()
     filter_backends = (filters.SearchFilter,)
     search_fields = ['cinema_name', ]
+
+
+class GenresViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    serializer_class = serializers.MovieGenreSerializer
+    queryset = models.MovieGenre.objects.all()

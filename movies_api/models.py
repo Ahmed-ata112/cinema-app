@@ -5,6 +5,13 @@ from django.conf import settings
 # Create your models here.
 
 
+class MovieGenre(models.Model):
+    genre_name = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.genre_name
+
+
 class CinemaItem(models.Model):
     cinema_name = models.CharField(max_length=50)
     cinema_link = models.CharField(max_length=50)
@@ -21,7 +28,9 @@ class MovieItem(models.Model):
                                    max_length=500, null=False)
     movie_image = models.TextField()
     movie_description = models.TextField()
-    movie_genre = models.CharField(max_length=20)
+    movie_genre = models.ForeignKey(
+        MovieGenre, on_delete=models.CASCADE, related_name='genre')
+
     movie_link_id = models.CharField(max_length=20)
     movie_rating = models.FloatField()
     cinema = models.ManyToManyField(
