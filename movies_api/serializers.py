@@ -4,8 +4,6 @@ from movies_api import models
 # serializer that is used to return a list of genres available
 
 
-
-
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MovieGenre
@@ -13,7 +11,7 @@ class MovieGenreSerializer(serializers.ModelSerializer):
 
 
 class MovieItemSerializer(serializers.ModelSerializer):
-    '''Serializ er for feed items'''
+    '''Serializer for feed items'''
     # cinema = serializers.ManyRelatedField()
     movie_genre = serializers.SlugRelatedField(
         read_only=True,

@@ -37,4 +37,8 @@ class GenresViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = serializers.MovieGenreSerializer
     queryset = models.MovieGenre.objects.all()
-    
+
+    def list(self, request, *args, **kwargs):
+        lis = self.queryset.values_list('genre_name', flat=True)
+
+        return Response(lis)
