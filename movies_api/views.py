@@ -9,6 +9,8 @@ from rest_framework import permissions
 from rest_framework import filters
 import django_filters.rest_framework
 
+from movies_api.filters import MoviesFilter
+
 
 class MovieFeedViewSet(viewsets.ModelViewSet):
     '''Handle creating ,Reading and updating profile feed item'''
@@ -16,9 +18,9 @@ class MovieFeedViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.MovieItemSerializer
     queryset = models.MovieItem.objects.all()
     search_fields = ['movie_title', 'movie_genre', ]
-    filterset_fields = ['movie_genre', 'movie_rating']
     filter_backends = (filters.SearchFilter,
                        django_filters.rest_framework.DjangoFilterBackend)
+    filterset_class = MoviesFilter
 
 
 class CinemaFeedViewSet(viewsets.ModelViewSet):
@@ -27,3 +29,5 @@ class CinemaFeedViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = serializers.CinemaItemSerializer
     queryset = models.CinemaItem.objects.all()
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ['cinema_name', ]
