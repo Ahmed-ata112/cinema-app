@@ -1,6 +1,10 @@
 from rest_framework import serializers
 from movies_api import models
 
+# serializer that is used to return a list of genres available
+
+
+
 
 class MovieGenreSerializer(serializers.ModelSerializer):
     class Meta:

@@ -37,3 +37,4 @@ class GenresViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = serializers.MovieGenreSerializer
     queryset = models.MovieGenre.objects.all()
+    
