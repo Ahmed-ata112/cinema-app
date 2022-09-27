@@ -28,8 +28,8 @@ class MovieItem(models.Model):
                                    max_length=500, null=False)
     movie_image = models.TextField()
     movie_description = models.TextField()
-    movie_genre = models.ForeignKey(
-        MovieGenre, on_delete=models.CASCADE, related_name='genre')
+    movie_genre = models.ManyToManyField(
+        MovieGenre,  related_name='genres')
 
     movie_link_id = models.CharField(max_length=20)
     movie_rating = models.FloatField()

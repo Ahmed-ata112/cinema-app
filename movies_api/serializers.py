@@ -14,6 +14,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
     '''Serializer for feed items'''
     # cinema = serializers.ManyRelatedField()
     movie_genre = serializers.SlugRelatedField(
+        many=True,
         read_only=True,
         slug_field='genre_name'
     )

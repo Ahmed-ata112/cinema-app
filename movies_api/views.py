@@ -40,5 +40,4 @@ class GenresViewSet(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         lis = self.queryset.values_list('genre_name', flat=True)
-
         return Response(lis)

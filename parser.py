@@ -18,15 +18,24 @@ class MovieStruct:
     movie_title = ''
     movie_image = ''
     movie_description = ''
-    movie_genre = ''
+    movie_genres = ''
     movie_link_id = ''
     movie_rating = 0.0
     cinema = 0
 
+    def add_a_gnere(self, genre, movie: MovieItem):
+        try:
+            gen = MovieGenre.objects.get(genre_name=genre)
+            movie.movie_genre.add(gen)
+        except ObjectDoesNotExist:
+            gen = MovieGenre(genre_name=genre)
+            gen.save()
+            movie.movie_genre.add(gen)
+
     def save(self):
         # return requests.post('http://localhost:8000/api/movies/',
         #  data=self.to_json(), headers={'Authorization': TOKEN})
-
+        retrieved = None
         try:
             retrieved = MovieItem.objects.get(movie_title=self.movie_title)
             retrieved.cinema.add(self.cinema)
@@ -35,12 +44,16 @@ class MovieStruct:
             retrieved = MovieItem(movie_title=self.movie_title,
                                   movie_image=self.movie_image,
                                   movie_description=self.movie_description,
-                                  movie_genre=self.movie_genre,
                                   movie_link_id=self.movie_link_id,
                                   movie_rating=self.movie_rating,
                                   )
             retrieved.save()
             retrieved.cinema.add(self.cinema)
+
+        for genre in self.movie_genres:
+            self.add_a_gnere(genre, retrieved)
+
+        retrieved.save()
 
     def to_json(self):
         return {
@@ -48,7 +61,7 @@ class MovieStruct:
 
             'movie_image': self.movie_image,
             'movie_description': self.movie_description,
-            'movie_genre': self.movie_genre,
+            'movie_genre': self.movie_genres,
             'movie_link_id': self.movie_link_id,
             'movie_rating': self.movie_rating,
         }
@@ -95,23 +108,18 @@ class Parser():
         def filter_details(tag):
             return tag.has_attr("href") and tag['href'].startswith("/en/index/work/genre/")
 
-        genre = soup.find(filter_details)
-        print(f"genre  {genre.text}")
-
-        try:
-            gen = MovieGenre.objects.get(genre_name=genre.text)
-            self.curr_movie.movie_genre = gen
-        except ObjectDoesNotExist:
-            gen = MovieGenre(genre_name=genre.text)
-            gen.save()
-            self.curr_movie.movie_genre = gen
+        genres = soup.findAll(filter_details)
+        print(f"genres  {genres}")
+        self.curr_movie.movie_genres = set([genre.text for genre in genres])
+        # create a set of the text inside the genres tags
 
         descriptions = soup.find(
             'div', attrs={'class': 'columns small-12 medium-9 large-9'})
 
         res = descriptions.findAll('p')
-        print(f"description: {res[0].text}")
-        self.curr_movie.movie_description = res[0].text
+        # print(f"description: {res[0].text}")
+        desc_text = res[0].text.replace('...Read more', '')
+        self.curr_movie.movie_description = desc_text
         rating = soup.find('div', attrs={'class': 'stars-orange-60'}).text
 
         print(rating)
@@ -130,7 +138,7 @@ class Parser():
 
         i = 0
         while i < len(movies):
-            print("image is " + movies[i].find('img')['data-src'])
+            # print("image is " + movies[i].find('img')['data-src'])
             self.curr_movie.movie_image = movies[i].find('img')['data-src']
             i += 1
             print("title is " + movies[i].text)
@@ -145,7 +153,7 @@ class Parser():
     def parse_cinames(self):
         for i in range(1, 11):
             page = urlopen(self.theaterBaseUrl + str(i))
-            print(self.theaterBaseUrl + str(i))
+            # print(self.theaterBaseUrl + str(i))
             html = page.read().decode("utf-8")
             soup = BeautifulSoup(html, "html.parser")
 
@@ -159,7 +167,7 @@ class Parser():
             for cinema in cinemas:
                 try:
                     curr_cinema = cinema.find(cinn_filter)
-                    print(curr_cinema.text.strip())
+                    # print(curr_cinema.text.strip())
                     print(self.baseUrl + curr_cinema['href'])
                     c = CinemaItem(cinema_name=curr_cinema.text.strip(),
                                    cinema_link=(self.baseUrl + curr_cinema['href']))
