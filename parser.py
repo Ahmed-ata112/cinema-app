@@ -26,11 +26,11 @@ class MovieStruct:
     def add_a_gnere(self, genre, movie: MovieItem):
         try:
             gen = MovieGenre.objects.get(genre_name=genre)
-            movie.movie_genre.add(gen)
+            movie.movie_genres.add(gen)
         except ObjectDoesNotExist:
             gen = MovieGenre(genre_name=genre)
             gen.save()
-            movie.movie_genre.add(gen)
+            movie.movie_genres.add(gen)
 
     def save(self):
         # return requests.post('http://localhost:8000/api/movies/',
@@ -60,7 +60,7 @@ class MovieStruct:
             'movie_title': self.movie_title,
             'movie_image': self.movie_image,
             'movie_description': self.movie_description,
-            'movie_genre': self.movie_genres,
+            'movie_genres': self.movie_genres,
             'movie_link_id': self.movie_link_id,
             'movie_rating': self.movie_rating,
         }

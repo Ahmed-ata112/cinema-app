@@ -13,7 +13,7 @@ class MovieGenreSerializer(serializers.ModelSerializer):
 class MovieItemSerializer(serializers.ModelSerializer):
     '''Serializer for feed items'''
     # cinema = serializers.ManyRelatedField()
-    movie_genre = serializers.SlugRelatedField(
+    movie_genres = serializers.SlugRelatedField(
         many=True,
         read_only=True,
         slug_field='genre_name'
@@ -22,7 +22,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.MovieItem
         fields = ('movie_title', 'movie_description',
-                  'movie_image', 'movie_genre', 'movie_link_id', 'movie_rating', 'cinema')
+                  'movie_image', 'movie_genres', 'movie_link_id', 'movie_rating', 'cinema')
         depth = 1
 
 
