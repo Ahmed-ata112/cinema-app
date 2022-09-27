@@ -58,7 +58,6 @@ class MovieStruct:
     def to_json(self):
         return {
             'movie_title': self.movie_title,
-
             'movie_image': self.movie_image,
             'movie_description': self.movie_description,
             'movie_genre': self.movie_genres,
