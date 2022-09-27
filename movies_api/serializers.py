@@ -17,7 +17,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='genre_name'
     )
-
+    
     class Meta:
         model = models.MovieItem
         fields = ('movie_title', 'movie_description',
