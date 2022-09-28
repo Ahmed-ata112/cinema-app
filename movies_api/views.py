@@ -6,12 +6,9 @@ from movies_api import serializers
 from movies_api import models
 from rest_framework.response import Response
 from rest_framework import permissions
-import django_filters.rest_framework
 from movies_api.filters import MoviesFilter
 from rest_framework import filters
-
-
-from django_filters.rest_framework import DjangoFilterBackend, FilterSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class MovieFeedViewSet(viewsets.ModelViewSet):
