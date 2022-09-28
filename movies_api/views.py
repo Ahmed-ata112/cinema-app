@@ -6,10 +6,12 @@ from movies_api import serializers
 from movies_api import models
 from rest_framework.response import Response
 from rest_framework import permissions
-from rest_framework import filters
 import django_filters.rest_framework
-
 from movies_api.filters import MoviesFilter
+from rest_framework import filters
+
+
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet
 
 
 class MovieFeedViewSet(viewsets.ModelViewSet):
@@ -19,7 +21,7 @@ class MovieFeedViewSet(viewsets.ModelViewSet):
     queryset = models.MovieItem.objects.all()
     search_fields = ['movie_title', 'movie_genre__genre_name', ]
     filter_backends = (filters.SearchFilter,
-                       django_filters.rest_framework.DjangoFilterBackend)
+                       DjangoFilterBackend)
     filterset_class = MoviesFilter
 
 

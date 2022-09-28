@@ -1,5 +1,6 @@
 import django_filters
 from movies_api import models
+from django_filters import OrderingFilter
 
 
 class MoviesFilter(django_filters.FilterSet):
@@ -9,6 +10,17 @@ class MoviesFilter(django_filters.FilterSet):
         queryset=models.MovieGenre.objects.all(), to_field_name='genre_name')
     movie_rating = django_filters.NumberFilter(
         field_name='movie_rating', lookup_expr='gte')
+
+    order = OrderingFilter(
+        # tuple-mapping retains order
+        fields=(
+            ('movie_rating', 'rating'),
+        ),
+
+        # labels do not need to retain order
+        field_labels={
+        }
+    )
 
     class Meta:
         model = models.MovieItem
