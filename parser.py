@@ -67,6 +67,7 @@ class MovieStruct:
 
 
 class CinemaStruct:
+    # sd
     cinema_name = ''
     cinema_link = ''
 
