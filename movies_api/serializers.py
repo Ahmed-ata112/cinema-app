@@ -18,7 +18,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
         read_only=True,
         slug_field='genre_name'
     )
-    
+
     class Meta:
         model = models.MovieItem
         fields = ('movie_title', 'movie_description',
@@ -33,4 +33,5 @@ class CinemaItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CinemaItem
-        fields = ('cinema_name', 'cinema_link', 'movies')
+        fields = ('cinema_name', 'cinema_link',
+                  'cinema_link', 'cinema_image', 'movies')

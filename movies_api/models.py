@@ -15,6 +15,8 @@ class MovieGenre(models.Model):
 class CinemaItem(models.Model):
     cinema_name = models.CharField(max_length=50)
     cinema_link = models.CharField(max_length=50)
+    cinema_image = models.CharField(max_length=200)
+    cinema_address = models.CharField(max_length=200)
 
     def __str__(self):
         '''return Model as String '''

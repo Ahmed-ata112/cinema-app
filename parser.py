@@ -67,9 +67,10 @@ class MovieStruct:
 
 
 class CinemaStruct:
-    # sd
     cinema_name = ''
     cinema_link = ''
+    cinema_image = ''
+    cinema_location = ''
 
     # def save(self):
     # return requests.post('http://localhost:8000/api/cinemas/',
@@ -81,6 +82,8 @@ class CinemaStruct:
         return {
             'cinema_name': self.cinema_name,
             'cinema_link': self.cinema_link,
+            'cinema_image': self.cinema_image,
+            'cinema_location': self.cinema_location,
         }
 
     def __str__(self):
@@ -109,7 +112,7 @@ class Parser():
             return tag.has_attr("href") and tag['href'].startswith("/en/index/work/genre/")
 
         genres = soup.findAll(filter_details)
-        print(f"genres  {genres}")
+        # print(f"genres  {genres}")
         self.curr_movie.movie_genres = set([genre.text for genre in genres])
         # create a set of the text inside the genres tags
 
@@ -122,7 +125,7 @@ class Parser():
         self.curr_movie.movie_description = desc_text
         rating = soup.find('div', attrs={'class': 'stars-orange-60'}).text
 
-        print(rating)
+        # print(rating)
         self.curr_movie.movie_rating = float(rating)
         self.curr_movie.save()
 
@@ -130,6 +133,32 @@ class Parser():
         page = urlopen(url)
         html = page.read().decode("utf-8")
         soup = BeautifulSoup(html, "html.parser")
+
+        a = soup.find("div", attrs={'class': 'intro-box'})
+        a = a.find('img')
+        self.curr_cinema.cinema_image = a['src']
+
+        b = soup.find("ul", attrs={'class': 'unstyled no-margin'})
+        b = b.findAll('li')
+        # general address
+        self.curr_cinema.cinema_location = b[0].text.replace('\n', '').strip()
+        print("Address - " + self.curr_cinema.cinema_location)
+
+        c = CinemaItem(cinema_name=self.curr_cinema.cinema_name,
+                       cinema_link=self.curr_cinema.cinema_link,
+                       cinema_image=self.curr_cinema.cinema_image,
+                       cinema_address=self.curr_cinema.cinema_location)
+
+        c.save()
+        self.curr_movie.cinema = c
+        # print("-------------------")
+        # b = b[1].findAll('li')
+        # for li in b:
+        #     print(li.text)
+        # s = set()
+        # for li in b:
+        #     s.add(li.text.strip().replace('\n', ' '))
+        # print(s)
 
         def filter_movies(tag):
             return (not tag.has_attr("class")) and tag.has_attr("href") and tag['href'].startswith("/en/work/")
@@ -141,12 +170,12 @@ class Parser():
             # print("image is " + movies[i].find('img')['data-src'])
             self.curr_movie.movie_image = movies[i].find('img')['data-src']
             i += 1
-            print("title is " + movies[i].text)
+            # print("title is " + movies[i].text)
             self.curr_movie.movie_title = movies[i].text
             self.curr_movie.movie_link_id = movies[i]['href']
 
             movie_link = self.baseUrl + movies[i]['href']
-            print("link + " + movie_link)
+            # print("link + " + movie_link)
             self.parse_movie_details(movie_link)
             i += 1
 
@@ -169,14 +198,9 @@ class Parser():
                     curr_cinema = cinema.find(cinn_filter)
                     # print(curr_cinema.text.strip())
                     print(self.baseUrl + curr_cinema['href'])
-                    c = CinemaItem(cinema_name=curr_cinema.text.strip(),
-                                   cinema_link=(self.baseUrl + curr_cinema['href']))
-                    c.save()
-                    # self.curr_cinema.cinema_name = curr_cinema.text.strip()
-                    # self.curr_cinema.cinema_link = self.baseUrl + \
-                    # curr_cinema['href']
-                    self.curr_movie.cinema = c
-
+                    self.curr_cinema.cinema_name = curr_cinema.text.strip()
+                    self.curr_cinema.cinema_link = self.baseUrl + \
+                        curr_cinema['href']
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
                     print('='*50)
