@@ -21,7 +21,7 @@ class MovieItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.MovieItem
-        fields = ('movie_title', 'movie_description',
+        fields = ('id', 'movie_title', 'movie_description',
                   'movie_image', 'movie_genres', 'movie_link_id', 'movie_rating', 'cinema')
         # depth = 1
 
@@ -33,5 +33,5 @@ class CinemaItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.CinemaItem
-        fields = ('cinema_name', 'cinema_link',
+        fields = ('id', 'cinema_name', 'cinema_link', 'cinema_address',
                   'cinema_link', 'cinema_image', 'movies')
