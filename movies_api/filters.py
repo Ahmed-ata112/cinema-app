@@ -25,3 +25,13 @@ class MoviesFilter(django_filters.FilterSet):
     class Meta:
         model = models.MovieItem
         fields = ['movie_title', 'movie_genres', 'movie_rating']
+
+
+# class CinemaFilter(django_filters.FilterSet):
+#     cinema_name = django_filters.CharFilter(
+#         lookup_expr='icontains', field_name='cinema_name')
+
+#     class Meta:
+#         model = models.CinemaItem
+
+#         fields = ['cinema_name']

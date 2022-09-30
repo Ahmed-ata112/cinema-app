@@ -23,13 +23,13 @@ class MovieItemSerializer(serializers.ModelSerializer):
         model = models.MovieItem
         fields = ('movie_title', 'movie_description',
                   'movie_image', 'movie_genres', 'movie_link_id', 'movie_rating', 'cinema')
-        depth = 1
+        # depth = 1
 
 
 class CinemaItemSerializer(serializers.ModelSerializer):
     '''Serializer for feed items'''
     # movies is the related_name
-    movies = MovieItemSerializer(many=True)
+    # movies = MovieItemSerializer(many=True)
 
     class Meta:
         model = models.CinemaItem
