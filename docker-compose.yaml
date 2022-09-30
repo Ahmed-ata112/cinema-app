@@ -9,7 +9,7 @@ services:
     # Mount the container `/drf` folder to the a `src` folder in the location
     # of the Dockerfile on the host machine.
     volumes:
-      - .:/drf
+      - .:/drf_src
     # Map port 8000 to port 9090 so that we can access the application on
     # our host machine by visiting 127.0.0.1:9090
     ports:
