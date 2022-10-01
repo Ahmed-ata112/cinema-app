@@ -181,17 +181,21 @@ class Parser():
 
     def parse_cinames(self):
         for i in range(1, 11):
-            page = urlopen(self.theaterBaseUrl + str(i))
-            # print(self.theaterBaseUrl + str(i))
-            html = page.read().decode("utf-8")
-            soup = BeautifulSoup(html, "html.parser")
+            try:
+                page = urlopen(self.theaterBaseUrl + str(i))
+                # print(self.theaterBaseUrl + str(i))
+                html = page.read().decode("utf-8")
+                soup = BeautifulSoup(html, "html.parser")
 
-            cinemas = soup.findAll(
-                'div', attrs={'class': 'jumbo-theater clearfix'})
-            # write_html_to_file(cinemas)
+                cinemas = soup.findAll(
+                    'div', attrs={'class': 'jumbo-theater clearfix'})
+                # write_html_to_file(cinemas)
 
-            def cinn_filter(tag):
-                return tag.has_attr("href") and tag['href'].startswith("/en/theater/")
+                def cinn_filter(tag):
+                    return tag.has_attr("href") and tag['href'].startswith("/en/theater/")
+            except Exception as e:
+                print(e)
+                continue
 
             for cinema in cinemas:
                 try:
@@ -208,4 +212,8 @@ class Parser():
                     print(e)
 
     def init(self):
-        self.parse_cinames()
+        try:
+            self.parse_cinames()
+        except Exception as e:
+            print(e)
+        print("Done")

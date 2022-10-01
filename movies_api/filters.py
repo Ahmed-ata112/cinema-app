@@ -27,6 +27,7 @@ class MoviesFilter(django_filters.FilterSet):
         fields = ['movie_title', 'movie_genres', 'movie_rating']
 
 # intended to work with if needed more fields or filters
+
 # class CinemaFilter(django_filters.FilterSet):
 #     cinema_name = django_filters.CharFilter(
 #         lookup_expr='icontains', field_name='cinema_name')
