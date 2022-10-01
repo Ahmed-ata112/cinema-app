@@ -193,12 +193,8 @@ class Parser():
 
                 def cinn_filter(tag):
                     return tag.has_attr("href") and tag['href'].startswith("/en/theater/")
-            except Exception as e:
-                print(e)
-                continue
 
-            for cinema in cinemas:
-                try:
+                for cinema in cinemas:
                     curr_cinema = cinema.find(cinn_filter)
                     # print(curr_cinema.text.strip())
                     print(self.baseUrl + curr_cinema['href'])
@@ -208,8 +204,9 @@ class Parser():
                     self.parse_movies_in_cinema(
                         self.baseUrl + curr_cinema['href'])
                     print('='*50)
-                except Exception as e:
-                    print(e)
+            except Exception as e:
+                print(e)
+                continue
 
     def init(self):
         try:
