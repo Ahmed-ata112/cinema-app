@@ -4,25 +4,6 @@
 A Project that Scrapes All the movies and cinemas all over Egypt and other Countries in The MENA, Providing them as a RESTful API
 
 
-## API Reference
-#### Get all Cinemas
-```http
-  GET /api/cinemas
-```
-#### Get Cinema
-```http
-  GET /api/cinemas/${id}
-```
-#### Get all Movies
-```http
-  GET /api/movies
-```
-#### Get Movie
-```http
-  GET /api/movies/${id}
-```
-
-|====================================
 
 ## Install requirements
 
@@ -37,13 +18,8 @@ The scraper runs daily automatically but can be run thru
 
     python manage.py runparser
 
-# REST API
 
-The REST API to the example app is described below.
-
-## Get list of Cinemas
-
-### Request
+## API Reference
 
 `api/cinemas/`
   - `GET` : Get all cinemas
@@ -59,7 +35,7 @@ The REST API to the example app is described below.
   
   It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
 
-It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
+It can be filtered with `movie_title` , `movie_genres` and `movie_rating` 
   #### example
         curl http://localhost:8000/api/movies/?movie_title=Avatar&movie_genres=Animation&movie_rating=&order=rating
 
