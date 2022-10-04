@@ -1,8 +1,7 @@
 
 # Cinema  App
 
-A Project that Scrapes All the movies and cinemas all over Egypt and other Countries in The MENA, Providing them as a RESTful API
-
+A Project that Scrapes All the movies and cinemas all over Egypt and other Countries in The MENA, Providing them as a RESTful API using Django REST framework
 
 
 ## Install requirements
