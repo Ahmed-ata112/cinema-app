@@ -42,13 +42,13 @@ The scraper runs daily automatically but you can run it manually
   - `POST (Authenticated)` : Create a Movie and should be used only by the Scraper
   
 
-### `api/movies/${id}`
- - `GET` : Get a specific Movie 
- - `PUT (Authenticated)` : change the Movie object
- - `Delete (Authenticated)` : delete the Movie object
+- ### api/movies/${id}
+  - `GET` : Get a specific Movie 
+  - `PUT (Authenticated)` : change the Movie object
+  - `Delete (Authenticated)` : delete the Movie object
 
-### `api/genres/`
-  - `GET` : Get all genres of the movies
+- ### `api/genres/`
+    - `GET` : Get all genres of the movies
   
 ## Docker
 The server can run with 
