@@ -20,23 +20,24 @@ The scraper runs daily automatically but you can run it manually
 
 ## API Reference
 
-### api/cinemas/
+- ###  api/cinemas/
   - `GET` : Get all cinemas
   - `POST (Authenticated)` : Create a Cinema and should be used only by the Scraper
   
-### `api/cinemas/${id}`
- - `GET` : Get a specific Cinema 
- - `PUT (Authenticated)` : change the Cinema object
- - `Delete (Authenticated)` : delete the Cinema object
+- ### api/cinemas/${id}
+   - `GET` : Get a specific Cinema 
+   - `PUT (Authenticated)` : change the Cinema object
+   - `Delete (Authenticated)` : delete the Cinema object
 
-### `api/movies/`
-  - `GET` : Get all movies
+- ### api/movies/
+    - `GET` : Get all movies
   
-  It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
+      It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
 
 
-#### example:
-        curl http://localhost:8000/api/movies/?movie_title=Avatar&movie_genres=Animation&movie_rating=&order=-rating
+      #### example:
+
+          curl http://localhost:8000/api/movies/?movie_title=Avatar&movie_genres=Animation&movie_rating=&order=-rating
 
   - `POST (Authenticated)` : Create a Movie and should be used only by the Scraper
   
