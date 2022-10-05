@@ -6,7 +6,7 @@ A Project that Scrapes the movies and cinemas all over Egypt and other Countries
 
 ## Install requirements
 
-    pip install -r requirements.tct
+    pip install -r requirements.txt
 
 ## Run the app
 
