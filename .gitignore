@@ -1,1 +1,8 @@
 env/
+.vscode/
+# # Django #
+# *.log
+# *.pot
+# *.pyc
+# __pycache__
+# media
