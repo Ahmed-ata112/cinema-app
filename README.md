@@ -50,7 +50,6 @@ The scraper runs daily automatically but can be run thru
 ### `api/genres/`
   - `GET` : Get all genres of the movies
   
-
 ## Docker
 The server can run with 
 
