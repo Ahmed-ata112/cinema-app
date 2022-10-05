@@ -13,7 +13,7 @@ A Project that Scrapes the movies and cinemas all over Egypt and other Countries
     python manage.py runserver
 
 ## Run the Scraper Manually
-The scraper runs daily automatically but can be run thru
+The scraper runs daily automatically but you can run it manually
 
     python manage.py runparser
 
