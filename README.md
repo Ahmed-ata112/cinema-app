@@ -34,9 +34,9 @@ The scraper runs daily automatically but can be run thru
   
   It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
 
-It can be filtered with `movie_title` , `movie_genres` and `movie_rating` 
-  #### example :
-        curl http://localhost:8000/api/movies/?movie_title=Avatar&movie_genres=Animation&movie_rating=&order=rating
+
+#### example:
+        curl http://localhost:8000/api/movies/?movie_title=Avatar&movie_genres=Animation&movie_rating=&order=-rating
 
   - `POST (Authenticated)` : Create a Movie and should be used only by the Scraper
   
