@@ -51,6 +51,9 @@ It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
   - `GET` : Get all genres of the movies
   
 
+## Docker
+The server can run with 
 
+    docker compose up
 
 
