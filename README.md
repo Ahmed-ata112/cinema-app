@@ -20,16 +20,16 @@ The scraper runs daily automatically but can be run thru
 
 ## API Reference
 
-`api/cinemas/`
+### `api/cinemas/`
   - `GET` : Get all cinemas
   - `POST (Authenticated)` : Create a Cinema and should be used only by the Scraper
   
-`api/cinemas/${id}`
+### `api/cinemas/${id}`
  - `GET` : Get a specific Cinema 
  - `PUT (Authenticated)` : change the Cinema object
  - `Delete (Authenticated)` : delete the Cinema object
 
-`api/movies/`
+### `api/movies/`
   - `GET` : Get all movies
   
   It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
@@ -42,12 +42,12 @@ It can be filtered with `movie_title` , `movie_genres` and `movie_rating`
   
     
 
-`api/movies/${id}`
+### `api/movies/${id}`
  - `GET` : Get a specific Movie 
  - `PUT (Authenticated)` : change the Movie object
  - `Delete (Authenticated)` : delete the Movie object
 
-`api/genres/`
+### `api/genres/`
   - `GET` : Get all genres of the movies
   
 
