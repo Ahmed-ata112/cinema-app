@@ -20,7 +20,7 @@ The scraper runs daily automatically but you can run it manually
 
 ## API Reference
 
-### `api/cinemas/`
+### api/cinemas/
   - `GET` : Get all cinemas
   - `POST (Authenticated)` : Create a Cinema and should be used only by the Scraper
   
